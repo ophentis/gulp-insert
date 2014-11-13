@@ -24,7 +24,7 @@ exports.prepend = function(prepend) {
   var stream = new Stream.Transform({objectMode: true});
 
   stream._transform = function(file, unused, cb) {
-    if(file.isNull()) {
+    if( typeof file != 'object' || file.isNull()) {
       return cb(null, file);
     }
     var prependedBuffer = new Buffer(getInsertString(prepend, file));
@@ -47,7 +47,7 @@ exports.append = function(append) {
   var stream = new Stream.Transform({objectMode: true});
 
   stream._transform = function(file, unused, cb) {
-    if(file.isNull()) {
+    if( typeof file != 'object' || file.isNull()) {
       return cb(null, file);
     }
     var appendedBuffer = new Buffer(getInsertString(append, file));
@@ -70,7 +70,7 @@ exports.wrap = function(begin, end) {
   var stream = new Stream.Transform({objectMode: true});
 
   stream._transform = function(file, unused, cb) {
-    if(file.isNull()) {
+    if( typeof file != 'object' || file.isNull()) {
       return cb(null, file);
     }
     var prependedBuffer = new Buffer(getInsertString(begin, file));
@@ -95,7 +95,7 @@ exports.transform = function(fn) {
   var stream = new Stream.Transform({objectMode: true});
 
   stream._transform = function(file, unused, cb) {
-    if(file.isNull()) {
+    if( typeof file != 'object' || file.isNull()) {
       return cb(null, file);
     }
     if(file.isStream()) {
